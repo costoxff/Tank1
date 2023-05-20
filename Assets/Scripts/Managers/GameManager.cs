@@ -12,18 +12,22 @@ public class GameManager : MonoBehaviour
     public Text m_MessageText;        
     public GameObject m_TankPrefab;         
     public TankManager[] m_Tanks;
+
+    public GameObject PillPrefab;
+    public GameObject[] PillList;
     
-    private int m_RoundNumber;              
-    private WaitForSeconds m_StartWait;     
-    private WaitForSeconds m_EndWait;       
+    private int m_RoundNumber;
+    private WaitForSeconds m_StartWait;
+    private WaitForSeconds m_EndWait;
     private TankManager m_RoundWinner;
-    private TankManager m_GameWinner;       
-    private  bool isGameStart;
+    private TankManager m_GameWinner;
 
     private void Start()
     {
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
+
+        SpawnPills();
 
         SpawnAllTanks();
         SetCameraTargets();
@@ -76,6 +80,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator RoundStarting()
     {
         ResetAllTanks();
+        SpawnPills();
         DisableTankControl();
 
         m_CameraControl.SetStartPositionAndSize();
@@ -141,7 +146,6 @@ public class GameManager : MonoBehaviour
             if (m_Tanks[i].m_Instance.activeSelf)
                 return m_Tanks[i];
         }
-        isGameStart=false;
 
         return null;
     }
@@ -185,6 +189,26 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < m_Tanks.Length; i++)
         {
             m_Tanks[i].Reset();
+        }
+    }
+
+    private void SpawnPills()
+    {
+        Vector3[] positionList = { 
+            new Vector3(0, 1, -24.5f),
+            new Vector3(35.7f, 1, 4.5f),
+            new Vector3(-2.7f, 1, 8f),
+            new Vector3(17.1f, 1, 20f),
+            new Vector3(-33.67f, 1, 17.11f),
+         };
+
+        for (int i = 0; i < PillList.Length; i++)
+        {
+            if (!PillList[i])
+            {
+                PillList[i] = Instantiate(PillPrefab);
+                PillList[i].transform.position = positionList[i];
+            }
         }
     }
 

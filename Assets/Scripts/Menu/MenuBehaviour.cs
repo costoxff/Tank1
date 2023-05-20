@@ -19,6 +19,6 @@ public class MenuBehaviour : MonoBehaviour
 
     public void OnClicked()
     {
-        
+        SceneManager.LoadScene("PlayScene");
     }
 }

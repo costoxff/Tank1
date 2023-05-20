@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour
     public float m_StartDelay = 3f;         
     public float m_EndDelay = 3f;           
     public CameraControl m_CameraControl;   
-    public Text m_MessageText;
-    public Button b1;//開始按鈕              
+    public Text m_MessageText;        
     public GameObject m_TankPrefab;         
     public TankManager[] m_Tanks;
     
@@ -23,29 +22,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        isGameStart=false;
-        
+        m_StartWait = new WaitForSeconds(m_StartDelay);
+        m_EndWait = new WaitForSeconds(m_EndDelay);
+
+        SpawnAllTanks();
+        SetCameraTargets();
+
+        StartCoroutine(GameLoop());
     }
-
-    public void GameStart(){
-        b1.gameObject.SetActive(false);
-        isGameStart=true;
-
-        if(isGameStart){
-            m_StartWait = new WaitForSeconds(m_StartDelay);
-            m_EndWait = new WaitForSeconds(m_EndDelay);
-        
-
-            SpawnAllTanks();
-            SetCameraTargets();
-
-            StartCoroutine(GameLoop());
-            isGameStart=false;
-            //b1.gameObject.SetActive(true);
-        }
-        isGameStart=false;
-    }
-
 
     private void SpawnAllTanks()
     {

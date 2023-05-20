@@ -9,27 +9,46 @@ public class GameManager : MonoBehaviour
     public float m_StartDelay = 3f;         
     public float m_EndDelay = 3f;           
     public CameraControl m_CameraControl;   
-    public Text m_MessageText;              
+    public Text m_MessageText;
+    public Button b1;//開始按鈕              
     public GameObject m_TankPrefab;         
     public TankManager[] m_Tanks;           
-
-
     private int m_RoundNumber;              
     private WaitForSeconds m_StartWait;     
     private WaitForSeconds m_EndWait;       
     private TankManager m_RoundWinner;
     private TankManager m_GameWinner;       
-
+    private  bool isGameStart;
 
     private void Start()
     {
-        m_StartWait = new WaitForSeconds(m_StartDelay);
-        m_EndWait = new WaitForSeconds(m_EndDelay);
+        isGameStart=false;
+        
+    }
 
-        SpawnAllTanks();
-        SetCameraTargets();
+    public void GameStart(){
+        print("5555");
+        b1.gameObject.SetActive(false);
+        isGameStart=true;
 
-        StartCoroutine(GameLoop());
+        if(isGameStart){
+            m_StartWait = new WaitForSeconds(m_StartDelay);
+            m_EndWait = new WaitForSeconds(m_EndDelay);
+        
+
+            SpawnAllTanks();
+            SetCameraTargets();
+
+            StartCoroutine(GameLoop());
+            isGameStart=false;
+            //b1.gameObject.SetActive(true);
+        }
+        isGameStart=false;
+        
+        
+            
+           
+        
     }
 
 
@@ -143,6 +162,7 @@ public class GameManager : MonoBehaviour
             if (m_Tanks[i].m_Instance.activeSelf)
                 return m_Tanks[i];
         }
+        isGameStart=false;
 
         return null;
     }

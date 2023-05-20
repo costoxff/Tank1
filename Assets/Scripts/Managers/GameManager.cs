@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public Text m_MessageText;
     public Button b1;//開始按鈕              
     public GameObject m_TankPrefab;         
-    public TankManager[] m_Tanks;           
+    public TankManager[] m_Tanks;
+    
     private int m_RoundNumber;              
     private WaitForSeconds m_StartWait;     
     private WaitForSeconds m_EndWait;       
@@ -27,7 +28,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameStart(){
-        print("5555");
         b1.gameObject.SetActive(false);
         isGameStart=true;
 
@@ -44,11 +44,6 @@ public class GameManager : MonoBehaviour
             //b1.gameObject.SetActive(true);
         }
         isGameStart=false;
-        
-        
-            
-           
-        
     }
 
 
